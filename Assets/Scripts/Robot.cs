@@ -9,4 +9,13 @@ public class Robot : Agent
     /// Nivel atual da bateria do robot.
     /// </summary>
     [SerializeField] private float battery;
+
+    /// <summary>
+    /// O robo responde a um incidente.
+    /// </summary>
+    /// <param name="incidentPos"></param>
+    public void RespondToIncident(Vector3 incidentPos)
+    {
+        fsm.ChangeState(new ContainIncidentState(this, incidentPos));
+    }
 }
