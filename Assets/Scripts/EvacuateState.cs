@@ -10,7 +10,7 @@ public class EvacuateState : IState
     /// Initializes a new instance of the EvacuateState class for the agent
     /// </summary>
     /// <param name="agent">The agent for which the evacuation state is being created</param>
-    private EvacuateState(Agent agent)
+    public EvacuateState(Agent agent)
     {
         this._agent = agent;
     }

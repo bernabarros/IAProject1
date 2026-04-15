@@ -46,4 +46,12 @@ public class CrewMember : Agent
         base.Update();
         UpdateNeeds();
     }
+
+    /// <summary>
+    /// Inicializa a evacuação do agente.
+    /// </summary>
+    public void TriggerEvacuation()
+    {
+        fsm.ChangeState(new EvacuateState(this));
+    }
 }
