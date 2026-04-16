@@ -186,6 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 107755269}
   - component: {fileID: 107755268}
+  - component: {fileID: 107755270}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -220,6 +221,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &107755270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107755267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f68689337daf6d4c99c10288173e3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
 --- !u!1 &108137430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,7 +1166,8 @@ Transform:
   m_LocalPosition: {x: -5.14, y: 0, z: -5.1219883}
   m_LocalScale: {x: 11.3694, y: 0.01, z: 11.021277}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1780726283}
   m_Father: {fileID: 820157729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &692038554
@@ -2448,6 +2462,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7923936633035575541, guid: 42f0f1ed5e1bca9468f72e702ccc7e05, type: 3}
   m_PrefabInstance: {fileID: 1921110586007248340}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1780726282
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1780726283}
+  - component: {fileID: 1780726284}
+  m_Layer: 0
+  m_Name: ResourceSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1780726283
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780726282}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 4.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 692038553}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1780726284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1780726282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83db23c66e301d4f9e1e37d14be3db2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ResourceSpot
 --- !u!1 &1831758961
 GameObject:
   m_ObjectHideFlags: 0

@@ -40,6 +40,7 @@ public class CrewMember : Agent
     private void UpdateNeeds()
     {
         RestNeed += Time.deltaTime * 2f;
+        ResourceNeed += Time.deltaTime * 3f;
     }
 
     /// <summary>
@@ -63,5 +64,15 @@ public class CrewMember : Agent
     public void TriggerEvacuation()
     {
         fsm.ChangeState(new EvacuateState(this));
+    }
+
+    /// <summary>
+    /// Reduz a necessidade de recursos.
+    /// </summary>
+    /// <param name="amount"></param>
+    public void ReduceResource(float amount)
+    {
+        ResourceNeed -= amount;
+        ResourceNeed = Mathf.Max(ResourceNeed, 0);
     }
 }

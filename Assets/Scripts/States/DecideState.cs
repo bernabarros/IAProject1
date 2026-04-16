@@ -24,6 +24,10 @@ public class DecideState : IState
         {
             agent.fsm.ChangeState(new GoToRestState(agent));
         }
+        else if (agent.ResourceNeed >= 60f)
+        {
+            agent.fsm.ChangeState(new GoToResourceState(agent));
+        }
         else
         {
             agent.fsm.ChangeState(new WanderState(agent));
