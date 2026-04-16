@@ -9,20 +9,22 @@ public class RestState : IState
     /// </summary>
     private CrewMember agent;
 
+    private RestSpot restSpot;
+
     /// <summary>
     /// Construtor do estado de descanso.
     /// </summary>
     /// <param name="agent">Tripulante associado.</param>
-    public RestState(CrewMember agent)
+    public RestState(CrewMember agent, RestSpot restSpot)
     {
         this.agent = agent;
+        this.restSpot = restSpot;
     }
     /// <summary>
     /// Executado quando o agente entra no estado de descanso.
     /// </summary>
     public void Enter()
-    {
-        
+    {  
         Debug.Log("A descansar");
     }
     /// <summary>
@@ -35,6 +37,7 @@ public class RestState : IState
 
         if (agent.RestNeed <= 0)
         {
+            restSpot.Release();
             agent.fsm.ChangeState(new DecideState(agent));
         }
     }

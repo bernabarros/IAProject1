@@ -20,27 +20,22 @@ public class DecideState : IState
     /// </summary>
     public void Enter()
     {
-        MakeDecision();
-    }
-
-    public void Update()
-    {}
-
-    public void Exit()
-    {}
-
-    /// <summary>
-    /// Toma uma decisão com base nas necessidades do agente.
-    /// </summary>
-    private void MakeDecision()
-    {
-        if (agent.RestNeed > 50)
+        if (agent.RestNeed >= 70f)
         {
-            agent.fsm.ChangeState(new RestState(agent));
+            agent.fsm.ChangeState(new GoToRestState(agent));
         }
         else
         {
             agent.fsm.ChangeState(new WanderState(agent));
         }
     }
+    
+    /// <summary>
+    /// Atualiza o estado de decisão, verificando se as necessidades do agente mudaram e tomando uma nova decisão se necessário.
+    /// </summary>
+    public void Update()
+    {}
+
+    public void Exit()
+    {}
 }

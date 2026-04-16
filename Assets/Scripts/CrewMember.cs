@@ -15,6 +15,16 @@ public class CrewMember : Agent
     public float ResourceNeed { get; private set; }
 
     /// <summary>
+    /// Ponto de descanso atribuÃ­do ao agente.
+    /// </summary>
+    [SerializeField] private Transform restPoint;
+
+    /// <summary>
+    /// Acesso ao ponto de descanso.
+    /// </summary>
+    public Transform RestPoint => restPoint;
+
+    /// <summary>
     /// Inicializa a FSM do tripulante e define o estado inicial.
     /// </summary>
     protected override void Start()
@@ -48,7 +58,7 @@ public class CrewMember : Agent
     }
 
     /// <summary>
-    /// Inicializa a evacuação do agente.
+    /// Inicializa a evacuacao do agente.
     /// </summary>
     public void TriggerEvacuation()
     {

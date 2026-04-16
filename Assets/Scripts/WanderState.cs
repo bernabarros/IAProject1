@@ -28,15 +28,16 @@ public class WanderState : IState
     }
 
     /// <summary>
-    /// Atualiza o movimento do agente.
+    /// Atualiza o estado de wander
     /// </summary>
     public void Update()
     {
-        timer += Time.deltaTime;
-        if (timer >= maxTimer || agent.navAgent.remainingDistance < 1f)
+        // Se chegou ao destino
+        if (!agent.navAgent.pathPending &&
+            agent.navAgent.remainingDistance < 1f)
         {
             /// <summary>
-            /// Após algum tempo, volta a decidir o que fazer.
+            /// Quando chega ao destino, volta a decidir.
             /// </summary>
             agent.fsm.ChangeState(new DecideState((CrewMember)agent));
         }

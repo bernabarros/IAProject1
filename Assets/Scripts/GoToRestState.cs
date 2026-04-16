@@ -5,7 +5,7 @@ using UnityEngine;
 public class GoToRestState : IState
 {
     private CrewMember agent;
-    private Transform restPoint;
+    private RestSpot restSpot;
 
     /// <summary>
     /// Construtor do estado de ir para descanso.
@@ -14,8 +14,6 @@ public class GoToRestState : IState
     public GoToRestState(CrewMember agent)
     {
         this.agent = agent;
-
-        restPoint = GameObject.Find("RestPoint").transform;
     }
 
     /// <summary>
@@ -23,7 +21,24 @@ public class GoToRestState : IState
     /// </summary>
     public void Enter()
     {
-        agent.navAgent.SetDestination(restPoint.position);
+        if (RestManager.Instance == null)
+        {
+            Debug.Log("RestManager não existe!");
+            agent.fsm.ChangeState(new WanderState(agent));
+            return;
+        }
+
+        restSpot = RestManager.Instance.GetFreeSpot();
+
+        if (restSpot == null)
+        {
+            Debug.Log("Sem spots disponíveis!");
+            agent.fsm.ChangeState(new WanderState(agent));
+            return;
+        }
+
+        restSpot.Occupy();
+        agent.navAgent.SetDestination(restSpot.transform.position);
     }
 
     /// <summary>
@@ -31,10 +46,12 @@ public class GoToRestState : IState
     /// </summary>
     public void Update()
     {
+        if(restSpot == null) return;
+
         if(!agent.navAgent.pathPending && 
         agent.navAgent.remainingDistance < 1f)
         {
-            agent.fsm.ChangeState(new RestState(agent));
+            agent.fsm.ChangeState(new RestState(agent, restSpot));
         }
     }
 
