@@ -1,0 +1,95 @@
+using UnityEngine;
+using System.Collections.Generic;
+using UnityEngine.AI;
+using System.Collections;
+
+public class HazardZone : MonoBehaviour
+{
+    [SerializeField] private HazardType _currentHazard = HazardType.None;
+
+    [SerializeField] private List<HazardZone> _adjacentZones;
+    [SerializeField] private float _propagationTime = 15f;
+
+    private NavMeshObstacle _navObstacle;
+
+    /// <summary>
+    /// Gets the NavMeshObstacle component and initializes it if the hazard is already active at the start
+    /// </summary>
+    private void Awake()
+    {
+        _navObstacle = GetComponent<NavMeshObstacle>();
+    }
+    /// <summary>
+    /// Activate Hazard and starts to propagate to zones
+    /// </summary>
+    /// <param name="hazard"></param>
+    public void ActivateHazard(HazardType hazard)
+    {
+        if (_currentHazard != HazardType.None) return;
+
+        _currentHazard = hazard;
+
+        if(hazard == HazardType.Fire && _navObstacle != null)
+        {
+            _navObstacle.enabled = true;
+        }
+
+        StartCoroutine(PropagateHazard());
+    }
+
+    /// <summary>
+    /// Coroutine that waits for a specified time before propagating the hazard
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator PropagateHazard()
+    {
+        yield return new WaitForSeconds(_propagationTime);
+
+        foreach (HazardZone zone in _adjacentZones)
+        {
+            if (zone._currentHazard == HazardType.None)
+            {
+                zone.ActivateHazard(_currentHazard);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Kills a agent during an hazard
+    /// </summary>
+    /// <param name="agent"></param>
+    private void KillAgent(Agent agent)
+    {
+        if (!agent.enabled) return;
+
+        if(_currentHazard == HazardType.Fire)
+        {
+            ExecuteDeath(agent) ;
+        }
+        else if (_currentHazard == HazardType.O2Leak)
+        {
+            if(agent is CrewMember)
+            {
+                ExecuteDeath(agent);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Method that handles the death of an agent
+    /// </summary>
+    /// <param name="agent"></param>
+    private void ExecuteDeath(Agent agent)
+    {
+        agent.fsm.ChangeState(null);
+        agent.navAgent.enabled = false;
+        agent.enabled = false;
+        
+
+        NavMeshObstacle corpseObstacle = agent.gameObject.AddComponent<NavMeshObstacle>();
+        corpseObstacle.shape = NavMeshObstacleShape.Capsule;
+        corpseObstacle.carving = true;
+
+        // GameManager call here
+    }
+}
