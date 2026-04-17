@@ -20,13 +20,25 @@ public class DecideState : IState
     /// </summary>
     public void Enter()
     {
-        if (agent.RestNeed >= 70f)
+        float randomFactor = Random.Range(0.9f, 1.1f);
+
+        float restScore = agent.GetRestPriority() * randomFactor;
+        float resourceScore = agent.GetResourcePriority() * randomFactor;
+        float work = agent.GetWorkPriority() * randomFactor;
+
+        float highest = Mathf.Max(restScore, resourceScore, work);
+
+        if (highest == restScore && restScore > 20f)
         {
             agent.fsm.ChangeState(new GoToRestState(agent));
         }
-        else if (agent.ResourceNeed >= 60f)
+        else if (highest == resourceScore && resourceScore > 20f)
         {
             agent.fsm.ChangeState(new GoToResourceState(agent));
+        }
+        else if (highest == work && work > 20f)
+        {
+            agent.fsm.ChangeState(new GoToWorkState(agent));
         }
         else
         {

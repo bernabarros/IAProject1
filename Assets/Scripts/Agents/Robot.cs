@@ -6,14 +6,60 @@ using UnityEngine;
 public class Robot : Agent
 {
     /// <summary>
-    /// Nivel atual da bateria do robot.
+    /// Necessidade de energia (bateria).
     /// </summary>
-    [SerializeField] private float battery;
+    public float EnergyNeed { get; private set; }
+
+    [SerializeField] private float energyWeight = 1.5f;
+
+    [SerializeField] private float energyRate;
 
     /// <summary>
-    /// O robo responde a um incidente.
+    /// Inicializa a FSM do robô com energia randomizada e define o estado inicial.
     /// </summary>
-    /// <param name="incidentPos"></param>
+    protected override void Start()
+    {
+        base.Start();
+        
+        EnergyNeed = Random.Range(0f, 100f);
+        energyRate = Random.Range(5f, 10f);
+
+        fsm.ChangeState(new RobotDecideState(this));
+    }
+
+    /// <summary>
+    /// Aumenta a necessidade de energia ao longo do tempo.
+    /// </summary>
+    protected override void Update()
+    {
+        base.Update();
+        UpdateNeeds();
+    }
+
+    /// <summary>
+    /// Atualiza a bateria ao longo do tempo.
+    /// </summary>
+    private void UpdateNeeds()
+    {
+        EnergyNeed += Time.deltaTime * energyRate;
+    }
+
+    /// <summary>
+    /// Reduz a necessidade de energia.
+    /// </summary>
+    public void Recharge(float amount)
+    {
+        EnergyNeed -= amount;
+        EnergyNeed = Mathf.Max(EnergyNeed, 0);
+    }
+
+    /// <summary>
+    /// Prioridade de energia.
+    /// </summary>
+    public float GetEnergyPriority()
+    {
+        return EnergyNeed * energyWeight;
+    }
     public void RespondToIncident(Vector3 incidentPos)
     {
         fsm.ChangeState(new ContainIncidentState(this, incidentPos));

@@ -37,9 +37,16 @@ public class WanderState : IState
             agent.navAgent.remainingDistance < 1f)
         {
             /// <summary>
-            /// Quando chega ao destino, volta a decidir.
+            /// Quando chega ao destino, volta a decidir, seja robo ou tripulante.
             /// </summary>
-            agent.fsm.ChangeState(new DecideState((CrewMember)agent));
+            if (agent is CrewMember crew)
+            {
+                agent.fsm.ChangeState(new DecideState(crew));
+            }
+            else if (agent is Robot robot)
+            {
+                agent.fsm.ChangeState(new RobotDecideState(robot));
+            }
         }
     }
 
