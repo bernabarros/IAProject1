@@ -172,22 +172,33 @@ stateDiagram-v2
     DecideState --> GoToResourceState : resourceScore highest > 20
     DecideState --> GoToWorkState : workScore highest > 20
     DecideState --> WanderState : else
+    DecideState --> EvacuateState : evacuation trigger
 
     GoToRestState --> RestState : reached destination
     GoToRestState --> WanderState : no rest spot
+    GoToRestState --> EvacuateState : evacuation trigger
 
     GoToResourceState --> ResourceState : reached destination
     GoToResourceState --> WanderState : no resource spot
+    GoToResourceState --> EvacuateState : evacuation trigger
 
     GoToWorkState --> WorkState : reached destination
     GoToWorkState --> WanderState : no work spot
+    GoToWorkState --> EvacuateState : evacuation trigger
 
     RestState --> DecideState : RestNeed <= 0
+    RestState --> EvacuateState : evacuation trigger
+
     ResourceState --> DecideState : ResourceNeed <= 0
+    ResourceState --> EvacuateState : evacuation trigger
+
     WorkState --> DecideState : WorkNeed <= 0
+    WorkState --> EvacuateState : evacuation trigger
 
     WanderState --> DecideState : destination reached
+    WanderState --> EvacuateState : evacuation trigger
 
+    EvacuateState --> [*] : reached capsule (agent disabled)
 ```
 
 ```mermaid
@@ -201,13 +212,19 @@ stateDiagram-v2
 
     RobotDecideState --> GoToChargeState : energy > 30
     RobotDecideState --> WanderState : else
+    RobotDecideState --> ContainIncidentState : incident
 
     GoToChargeState --> ChargeState : reached destination
     GoToChargeState --> WanderState : no charging spot
+    GoToChargeState --> ContainIncidentState : incident
 
     ChargeState --> RobotDecideState : EnergyNeed <= 0
+    ChargeState --> ContainIncidentState : incident
 
     WanderState --> RobotDecideState : destination reached
+    WanderState --> ContainIncidentState : incident
+
+    ContainIncidentState --> RobotDecideState : all resolved
 ```
 
 ## Results and Discussion
