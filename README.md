@@ -229,6 +229,15 @@ stateDiagram-v2
 
 ## Results and Discussion
 
+The implementation of the simulation was successful, it containts the core requirements of the project. The combination of NavMesh system and FSM (Finite State Machine) provided a nice framework for agent autonomy
+
+FSM allowed both Crew Members and Robots to act. Dinamically calculation scores for RestNeed, ResourceNeed and WorkNeed. Crew Members transitioned between modules without getting stuck. Robots managed their battery levels, prioritizing charging only when necessary.
+
+The best aspect of this simulation was the dynamic response between emergencies. The Incident manager allowed randomized hazards to spawn and propagate. It has visual feedback for every hazard; Red for fire; Cyan for O2 Leak; Black for Power Failure.
+
+In crisis, the robots transitioned to the ContainIncidentState, and navigated to the closest hazard. Crew Members avoided those hazardous zones. That was achieved by the NavMeshObstacle, and guided by EvacuateState.
+
+The robots would enter an infinite recalculation loop when approaching an obstacle. This was resolved by destroying the NavMeshAgent upon an agent's death. And turning them into an obstacle creating a solid barrier.
 ## Conclusions
 
 
