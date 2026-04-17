@@ -20,11 +20,13 @@
 
 ## Introduction
 
-In the context of our Artificial Intelligence course subject, we were proposed a project to develop a simulation in Unity that replicates the behavior of agents on a Mars habitat colony, in which the agents of the simulation would be required to perform work tasks on specific areas of the base as well as satisfy their need for rest. Agents would also be required to react to incidents in the base and act accordingly either by attempting to contain and resolve the incident or escaping through the emergency exits.
+In the context of our Artificial Intelligence course subject, we were proposed a project to develop a simulation in Unity that replicates the behavior of agents on a Mars habitat colony, in which the agents of the simulation would be required to perform work tasks on specific areas of the base as well as satisfy their need for rest. Agents would also be required to react to incidents in the base and act accordingly either by attempting to contain and resolve the incident or if it becomes uncontrolable, escaping through the emergency exits.
+In order to resolve the project, we opted for using Fixed State Machines to handle the decision making of the agents and Unity's NavMesh system to handle pathfinding.
+The expected behaviour would be that human agents would perform tasks around the base normally making their way to the interaction spots to restore stats or perform work tasks while robots would mostly maintain their energy stat and respond to incidents in the base. Human agents would evacuate should a incident spread too much.
 
 Research performed for project resolution:
 
-- [^1]Layout of base was made by dividing work areas and rest areas, left side has the habitat and recharge stations and right side has the lab, storage and greenhouse, with airlocks connected to storage and greenhouse
+- [^1]Layout of base was made by dividing work areas and rest areas, left side has the habitat and recharge stations and right side has the lab, storage and greenhouse, with airlocks connected to storage and greenhouse.
 
 ## Methodology
 
@@ -240,5 +242,9 @@ In crisis, the robots transitioned to the ContainIncidentState, and navigated to
 The robots would enter an infinite recalculation loop when approaching an obstacle. This was resolved by destroying the NavMeshAgent upon an agent's death. And turning them into an obstacle creating a solid barrier.
 ## Conclusions
 
+## References
 
- [^1]:Zhong, Y., Wu, T., Han, Y., Wang, F., Zhao, D., Fang, Z., Pan, L., & Tang, C. (2025). Advancements in Mars Habitation Technologies and Terrestrial Simulation Projects: A Comprehensive Review. Aerospace, 12(6), 510. <https://doi.org/10.3390/aerospace12060510>
+- AI class slides
+- ChatGPT was used to debug code
+
+[^1]:Zhong, Y., Wu, T., Han, Y., Wang, F., Zhao, D., Fang, Z., Pan, L., & Tang, C. (2025). Advancements in Mars Habitation Technologies and Terrestrial Simulation Projects: A Comprehensive Review. Aerospace, 12(6), 510. <https://doi.org/10.3390/aerospace12060510>
