@@ -697,7 +697,7 @@ MonoBehaviour:
   crewPrefab: {fileID: 3677609736734153940, guid: e478b007dd459ab418095a56197ee669, type: 3}
   robotPrefab: {fileID: 6727288659417463749, guid: 4c27bf82e057b63419f8db0494360705, type: 3}
   totalAgents: 20
-  robotCount: 2
+  robotCount: 5
   spawnRadius: 10
 --- !u!114 &107755274
 MonoBehaviour:
@@ -892,6 +892,7 @@ MonoBehaviour:
   - {fileID: 692038558}
   - {fileID: 1558217013}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &108137437
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1715,6 +1716,7 @@ MonoBehaviour:
   - {fileID: 1948905338}
   - {fileID: 1598046574}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &220079179
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2921,6 +2923,7 @@ MonoBehaviour:
   - {fileID: 1948905338}
   - {fileID: 1558217013}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &582557568
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3205,6 +3208,7 @@ MonoBehaviour:
   - {fileID: 1558217013}
   - {fileID: 919081566}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!1 &641683039
 GameObject:
   m_ObjectHideFlags: 0
@@ -3542,6 +3546,7 @@ MonoBehaviour:
   - {fileID: 872651849}
   - {fileID: 108137436}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &692038559
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4415,6 +4420,7 @@ MonoBehaviour:
   - {fileID: 1595090491}
   - {fileID: 692038558}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &872651850
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4739,6 +4745,7 @@ MonoBehaviour:
   - {fileID: 639219159}
   - {fileID: 1013625191}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &919081567
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5155,6 +5162,7 @@ MonoBehaviour:
   - {fileID: 919081566}
   - {fileID: 1598046574}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &1013625192
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5917,6 +5925,7 @@ MonoBehaviour:
   _currentHazard: 0
   _adjacentZones: []
   _propagationTime: 15
+  maxRobots: 2
 --- !u!1 &1291655950
 GameObject:
   m_ObjectHideFlags: 0
@@ -7010,6 +7019,7 @@ MonoBehaviour:
   - {fileID: 108137436}
   - {fileID: 639219159}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &1558217014
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7334,6 +7344,7 @@ MonoBehaviour:
   - {fileID: 872651849}
   - {fileID: 2058498910}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &1595090492
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7542,6 +7553,7 @@ MonoBehaviour:
   - {fileID: 220079178}
   - {fileID: 1013625191}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &1598046575
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8200,6 +8212,7 @@ MonoBehaviour:
   _currentHazard: 0
   _adjacentZones: []
   _propagationTime: 15
+  maxRobots: 2
 --- !u!1001 &1831903255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8684,6 +8697,7 @@ MonoBehaviour:
   - {fileID: 2058498910}
   - {fileID: 220079178}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &1948905339
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9202,6 +9216,7 @@ MonoBehaviour:
   - {fileID: 1595090491}
   - {fileID: 1948905338}
   _propagationTime: 15
+  maxRobots: 2
 --- !u!65 &2058498911
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -64,16 +64,18 @@ public class Robot : Agent
     }
     public void RespondToIncident(HazardZone zone)
     {
-        if(!isDealingWithIncident)
+        if (!isDealingWithIncident && zone.RequestRobot())
         {
             isDealingWithIncident = true;
             fsm.ChangeState(new ContainIncidentState(this, zone));
         }
-            
     }
 
-    public void IncidentOver(bool isResolved)
+    /// <summary>
+    /// Indica que o robô terminou de lidar com o incidente.
+    /// </summary>
+    public void IncidentOver()
     {
-        isDealingWithIncident = isResolved;
+        isDealingWithIncident = false;
     }
 }

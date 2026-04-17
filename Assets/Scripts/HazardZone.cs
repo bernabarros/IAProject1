@@ -10,11 +10,14 @@ public class HazardZone : MonoBehaviour
     [SerializeField] private List<HazardZone> _adjacentZones;
     [SerializeField] private float _propagationTime = 15f;
 
+    [SerializeField] private int maxRobots = 5;
+    private int currentRobots = 0;
+
     private NavMeshObstacle _navObstacle;
     private Color _originalColor;
 
     /// <summary>
-    /// Gets the NavMeshObstacle component and initializes it if the hazard is already active at the start
+    /// Recebe a navMesh obstacle e a cor original da zona para futuras alterações visuais durante os incidentes.
     /// </summary>
     private void Awake()
     {
@@ -26,7 +29,7 @@ public class HazardZone : MonoBehaviour
         }
     }
     /// <summary>
-    /// Activate Hazard and starts to propagate to zones
+    /// Activa o acidente na zona mudando a cor da mesma.
     /// </summary>
     /// <param name="hazard"></param>
     public void ActivateHazard(HazardType hazard)
@@ -66,7 +69,7 @@ public class HazardZone : MonoBehaviour
     }
 
     /// <summary>
-    /// Coroutine that waits for a specified time before propagating the hazard
+    /// coroutine que propaga o incidente para as zonas adjacentes após um tempo definido, caso o incidente ainda esteja ativo.
     /// </summary>
     /// <returns></returns>
     private IEnumerator PropagateHazard()
@@ -83,7 +86,7 @@ public class HazardZone : MonoBehaviour
     }
 
     /// <summary>
-    /// Kills a agent during an hazard
+    /// Mata um agente durante um acidente
     /// </summary>
     /// <param name="agent"></param>
     private void KillAgent(Agent agent)
@@ -104,7 +107,7 @@ public class HazardZone : MonoBehaviour
     }
 
     /// <summary>
-    /// Method that handles the death of an agent
+    /// Metodo que trata da morte dos agentes
     /// </summary>
     /// <param name="agent"></param>
     private void ExecuteDeath(Agent agent)
@@ -116,7 +119,7 @@ public class HazardZone : MonoBehaviour
 
         NavMeshObstacle corpseObstacle = agent.gameObject.AddComponent<NavMeshObstacle>();
         corpseObstacle.shape = NavMeshObstacleShape.Capsule;
-        corpseObstacle.carving = true;
+        corpseObstacle.carving = false;
         if (GameManager.Instance != null)
         {
             GameManager.Instance.RegisterDeath();
@@ -172,7 +175,7 @@ public class HazardZone : MonoBehaviour
 
         IncidentManager._Instance.RemoveHazard(this);
     }
-
+    
     private void TriggerAlarm()
     {
         Robot[] allRobot = FindObjectsOfType<Robot>();
@@ -201,6 +204,27 @@ public class HazardZone : MonoBehaviour
     public void ResolveHazard()
     {
         ResolvingHazard();
+    }
+
+    /// <summary>
+    /// Chama um robô para lidar com o incidente, se ainda houver capacidade para isso. Retorna true se um robô foi designado, ou false se a capacidade máxima já foi atingida.
+    /// </summary>
+    /// <returns></returns>
+    public bool RequestRobot()
+    {
+        if (currentRobots >= maxRobots) return false;
+
+        currentRobots++;
+        return true;
+    }
+
+    /// <summary>
+    /// Indica que um robô terminou de lidar com o incidente, liberando espaço para que outro robô possa ser designado, caso necessário.
+     ///
+    /// </summary>
+    public void ReleaseRobot()
+    {
+        currentRobots = Mathf.Max(0, currentRobots - 1);
     }
 
     
