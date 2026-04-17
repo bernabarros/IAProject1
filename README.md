@@ -10,7 +10,7 @@
 ### Ivan Emídio a22301234
 
 - Pathfinding implementation;
-- Fixed State Machine implementation;
+- Finite State Machine implementation;
 
 ### Simão Durão a22408594
 
@@ -21,7 +21,7 @@
 ## Introduction
 
 In the context of our Artificial Intelligence course subject, we were proposed a project to develop a simulation in Unity that replicates the behavior of agents on a Mars habitat colony, in which the agents of the simulation would be required to perform work tasks on specific areas of the base as well as satisfy their need for rest. Agents would also be required to react to incidents in the base and act accordingly either by attempting to contain and resolve the incident or if it becomes uncontrolable, escaping through the emergency exits.
-In order to resolve the project, we opted for using Fixed State Machines to handle the decision making of the agents and Unity's NavMesh system to handle pathfinding.
+In order to resolve the project, we opted for using Finite State Machines to handle the decision making of the agents and Unity's NavMesh system to handle pathfinding.
 The expected behaviour would be that human agents would perform tasks around the base normally making their way to the interaction spots to restore stats or perform work tasks while robots would mostly maintain their energy stat and respond to incidents in the base. Human agents would evacuate should a incident spread too much.
 
 Research performed for project resolution:
@@ -31,6 +31,11 @@ Research performed for project resolution:
 ## Methodology
 
 The simulation was implemented in a Unity 3D scene, with the agents using Unity's NavMesh system (kinematic movement).
+In terms of programming, scripts for each State were created that control the tasks each agent can perform, with each type of agent having its own states.
+Manager scripts, using the Singleton Design Pattern, were created to manage the interaction spots as well as the spawning of agents.
+Agent scripts control the values of agent stats and the priority of tasks each agent must perform.
+A "Spawn Agent" button was added to spawn 20 agents into the simulation and a counter to track the number of deaths that occur from incidents.
+The "I" keyboard key can be used to trigger a random incident. Module areas will change to the color Red for fire incidents, Cyan for oxygen incidents and black for power failure incidents
 
 ```mermaid
 
