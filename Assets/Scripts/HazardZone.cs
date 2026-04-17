@@ -43,6 +43,7 @@ public class HazardZone : MonoBehaviour
         {
             _navObstacle.enabled = true;
         }
+        TriggerAlarm();
 
         StartCoroutine(PropagateHazard());
     }
@@ -135,6 +136,18 @@ public class HazardZone : MonoBehaviour
         if (zoneRenderer != null)
         {
             zoneRenderer.material.color = Color.white;
+        }
+    }
+
+    private void TriggerAlarm()
+    {
+        Robot[] allRobot = FindObjectsOfType<Robot>();
+
+        foreach(Robot robot in allRobot)
+        {
+            robot.RespondToIncident(this);
+
+            Debug.Log("a responder ao incidente");
         }
     }
 
