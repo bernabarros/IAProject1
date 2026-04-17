@@ -117,7 +117,10 @@ public class HazardZone : MonoBehaviour
         NavMeshObstacle corpseObstacle = agent.gameObject.AddComponent<NavMeshObstacle>();
         corpseObstacle.shape = NavMeshObstacleShape.Capsule;
         corpseObstacle.carving = true;
-
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.RegisterDeath();
+        }
     }
 
     private void OnTriggerStay(Collider other)
