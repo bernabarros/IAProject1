@@ -11,6 +11,7 @@
 
 - Pathfinding implementation;
 - Finite State Machine implementation;
+- Creation of zones logic (Habitat, Storage and Greenhouse)
 
 ### Simão Durão a22408594
 
@@ -251,5 +252,6 @@ The robots would enter an infinite recalculation loop when approaching an obstac
 
 - AI class slides
 - ChatGPT was used to debug code
+- C# Unity API
 
 [^1]:Zhong, Y., Wu, T., Han, Y., Wang, F., Zhao, D., Fang, Z., Pan, L., & Tang, C. (2025). Advancements in Mars Habitation Technologies and Terrestrial Simulation Projects: A Comprehensive Review. Aerospace, 12(6), 510. <https://doi.org/10.3390/aerospace12060510>
