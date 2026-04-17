@@ -123,12 +123,25 @@ public class HazardZone : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
+        /*
         if (_currentHazard == HazardType.None) return;
 
         Agent agent = other.GetComponent<Agent>();
 
         if(agent != null)
         {
+            KillAgent(agent);
+        }
+        */
+            Debug.Log("Something inside trigger: " + other.name);
+
+        if (_currentHazard == HazardType.None) return;
+
+        Agent agent = other.GetComponentInParent<Agent>();
+
+        if(agent != null)
+        {
+            Debug.Log("Agent detected: " + agent.name);
             KillAgent(agent);
         }
     }
@@ -174,4 +187,8 @@ public class HazardZone : MonoBehaviour
     {
         ResolvingHazard();
     }
+
+    
 }
+
+
