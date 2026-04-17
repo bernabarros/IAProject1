@@ -118,7 +118,6 @@ public class HazardZone : MonoBehaviour
         corpseObstacle.shape = NavMeshObstacleShape.Capsule;
         corpseObstacle.carving = true;
 
-        // GameManager call here
     }
 
     private void OnTriggerStay(Collider other)
@@ -133,7 +132,7 @@ public class HazardZone : MonoBehaviour
             KillAgent(agent);
         }
         */
-            Debug.Log("Something inside trigger: " + other.name);
+         
 
         if (_currentHazard == HazardType.None) return;
 
@@ -141,7 +140,7 @@ public class HazardZone : MonoBehaviour
 
         if(agent != null)
         {
-            Debug.Log("Agent detected: " + agent.name);
+            
             KillAgent(agent);
         }
     }
@@ -180,6 +179,19 @@ public class HazardZone : MonoBehaviour
             robot.RespondToIncident(this);
 
             Debug.Log("a responder ao incidente");
+        }
+
+        CrewMember[] allCrew = FindObjectsOfType<CrewMember>();
+        foreach (CrewMember crew in allCrew)
+        {
+            if (crew.enabled)
+            {
+                Vector3 currentDest = crew.navAgent.destination;
+
+                crew.navAgent.ResetPath();
+
+                crew.navAgent.SetDestination(currentDest);
+            }
         }
     }
 

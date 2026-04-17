@@ -8,7 +8,7 @@ public class ContainIncidentState : IState
 
     private float containmentTimer = 0f;
     private float timeToContain = 5f;
-    private float interactionRadius = 4f;
+    private float interactionRadius = 6f;
 
     public ContainIncidentState(Robot robot, HazardZone incidentLoc)
     {
@@ -67,11 +67,11 @@ public class ContainIncidentState : IState
 
     private void FinishContainment()
     {
-        HazardZone nextZone = IncidentManager._Instance.NextHazard();
+        HazardZone closestZone = IncidentManager._Instance.NextHazard(robot.transform.position);
 
-        if (nextZone != null)
+        if (closestZone != null)
         {
-            robot.fsm.ChangeState(new ContainIncidentState(robot, nextZone));
+            robot.fsm.ChangeState(new ContainIncidentState(robot, closestZone));
         }
         else
         {

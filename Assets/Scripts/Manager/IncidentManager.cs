@@ -51,15 +51,29 @@ public class IncidentManager : MonoBehaviour
         if (activeHazards.Contains(zone)) activeHazards.Remove(zone);
     }
 
-    private HazardZone GetNextHazard()
+    private HazardZone GetNextHazard(Vector3 robotPosition)
     {
-        if (activeHazards.Count > 0) return activeHazards[0];
-        return null;
+        if (activeHazards.Count == 0) return null;
+        
+        HazardZone closestZone = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach(HazardZone zone in activeHazards)
+        {
+            float distance = Vector3.Distance(robotPosition, zone.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                closestZone = zone;
+            }
+        }
+
+        return closestZone;
     }
 
     public void ActiveHazard(HazardZone zone) => RegisterActiveHazard(zone);
 
     public void RemoveHazard(HazardZone zone) => RemoveActiveHazard(zone);
 
-    public HazardZone NextHazard() => GetNextHazard();
+    public HazardZone NextHazard(Vector3 robotPosition) => GetNextHazard(robotPosition);
 }
