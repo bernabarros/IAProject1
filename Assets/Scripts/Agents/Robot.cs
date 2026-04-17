@@ -60,8 +60,8 @@ public class Robot : Agent
     {
         return EnergyNeed * energyWeight;
     }
-    public void RespondToIncident(Vector3 incidentPos)
+    public void RespondToIncident(HazardZone zone)
     {
-        fsm.ChangeState(new ContainIncidentState(this, incidentPos));
+        fsm.ChangeState(new ContainIncidentState(this, zone));
     }
 }

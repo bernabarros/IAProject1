@@ -3,10 +3,14 @@ using UnityEngine;
 public class ContainIncidentState : IState
 {
     private Robot robot;
-    private Vector3 incidentLoc;
+    private HazardZone incidentLoc;
     private float originalSpeed;
 
-    public ContainIncidentState(Robot robot, Vector3 incidentLoc)
+    private float containmentTimer = 0f;
+    private float timeToContain = 5f;
+    private float interactionRadius = 4f;
+
+    public ContainIncidentState(Robot robot, HazardZone incidentLoc)
     {
         this.robot = robot;
         this.incidentLoc = incidentLoc;
@@ -17,12 +21,13 @@ public class ContainIncidentState : IState
         originalSpeed = robot.navAgent.speed;
         robot.navAgent.speed *= 1.5f;
 
-        robot.navAgent.SetDestination(incidentLoc);
+        robot.navAgent.SetDestination(incidentLoc.transform.position);
     }
 
     public void Exit()
     {
         robot.navAgent.speed = originalSpeed;
+        robot.navAgent.isStopped = false;
     }
 
     /// <summary>
@@ -34,9 +39,34 @@ public class ContainIncidentState : IState
     /// arrives</remarks>
     public void Update()
     {
-        if(!robot.navAgent.pathPending && robot.navAgent.remainingDistance <= robot.navAgent.stoppingDistance)
+        if (incidentLoc == null || incidentLoc.GetCurrentHazard() == HazardType.None)
         {
-            // Implement Containment logic
+            FinishContainment();
+            return;
         }
+
+        float distanceToTarget = Vector3.Distance(robot.transform.position, incidentLoc.transform.position);
+
+        if (distanceToTarget <= interactionRadius)
+        {
+            robot.navAgent.isStopped = true;
+            containmentTimer += Time.deltaTime;
+
+            if (containmentTimer >= timeToContain)
+            {
+                incidentLoc.ResolveHazard();
+                FinishContainment();
+            }
+
+        }
+        else
+        {
+            robot.navAgent.isStopped = false;
+        }
+    }
+
+    private void FinishContainment()
+    {
+        robot.fsm.ChangeState(new RobotDecideState(robot));
     }
 }

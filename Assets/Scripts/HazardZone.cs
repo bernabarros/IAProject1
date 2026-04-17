@@ -114,4 +114,32 @@ public class HazardZone : MonoBehaviour
             KillAgent(agent);
         }
     }
+
+    public HazardType GetCurrentHazard()
+    {
+        return _currentHazard;
+    }
+
+    private void ResolvingHazard()
+    {
+        if (_currentHazard == HazardType.None) return;
+
+        _currentHazard = HazardType.None;
+
+        if(_navObstacle != null)
+        {
+            _navObstacle.enabled = false;
+        }
+        
+        Renderer zoneRenderer = GetComponent<Renderer>();
+        if (zoneRenderer != null)
+        {
+            zoneRenderer.material.color = Color.white;
+        }
+    }
+
+    public void ResolveHazard()
+    {
+        ResolvingHazard();
+    }
 }
