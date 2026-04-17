@@ -24,7 +24,7 @@ In the context of our Artificial Intelligence course subject, we were proposed a
 
 Research performed for project resolution:
 
--Layout of base: Zhong, Y., Wu, T., Han, Y., Wang, F., Zhao, D., Fang, Z., Pan, L., & Tang, C. (2025). Advancements in Mars Habitation Technologies and Terrestrial Simulation Projects: A Comprehensive Review. Aerospace, 12(6), 510. <https://doi.org/10.3390/aerospace12060510>
+- [^1]Layout of base was made by dividing work areas and rest areas, left side has the habitat and recharge stations and right side has the lab, storage and greenhouse, with airlocks connected to storage and greenhouse
 
 ## Methodology
 
@@ -158,8 +158,60 @@ classDiagram
     HazardZone ..> CrewMember
 ```
 
+```mermaid
+
+---
+title: Crew Member FSM
+---
+
+stateDiagram-v2
+    [*] --> DecideState
+    DecideState --> GoToRestState : restScore highest > 20
+    DecideState --> GoToResourceState : resourceScore highest > 20
+    DecideState --> GoToWorkState : workScore highest > 20
+    DecideState --> WanderState : else
+
+    GoToRestState --> RestState : reached destination
+    GoToRestState --> WanderState : no rest spot
+
+    GoToResourceState --> ResourceState : reached destination
+    GoToResourceState --> WanderState : no resource spot
+
+    GoToWorkState --> WorkState : reached destination
+    GoToWorkState --> WanderState : no work spot
+
+    RestState --> DecideState : RestNeed <= 0
+    ResourceState --> DecideState : ResourceNeed <= 0
+    WorkState --> DecideState : WorkNeed <= 0
+
+    WanderState --> DecideState : destination reached
+
+```
+
+```mermaid
+
+---
+title: Robot FSM
+---
+
+stateDiagram-v2
+    [*] --> RobotDecideState
+
+    RobotDecideState --> GoToChargeState : energy > 30
+    RobotDecideState --> WanderState : else
+
+    GoToChargeState --> ChargeState : reached destination
+    GoToChargeState --> WanderState : no charging spot
+
+    ChargeState --> RobotDecideState : EnergyNeed <= 0
+
+    WanderState --> RobotDecideState : destination reached
+```
 
 
 ## Results and Discussion
 
 ## Conclusions
+
+
+ [^1]:Zhong, Y., Wu, T., Han, Y., Wang, F., Zhao, D., Fang, Z., Pan, L., & Tang, C. (2025). Advancements in Mars Habitation Technologies and Terrestrial Simulation Projects: A Comprehensive Review. Aerospace, 12(6), 510. <https://doi.org/10.3390/aerospace12060510>
