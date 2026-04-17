@@ -5,7 +5,7 @@
 ### Bernardo Barros a22401588
 
 - Design of simulation base layout;
-- Writting project report;
+- Writing project report;
 
 ### Ivan Emídio a22301234
 
@@ -20,13 +20,15 @@
 
 ## Introduction
 
-In the context of our Artificial Intelligence course subject, we were proposed a project to develop a simulation in Unity that replicates the behaviour of agents on a Mars habitat colony, in which the agents of the simulation would be required to perform work tasks on specific areas of the base as well as satisfy their need for rest. Agents would also be required to react to incidents in the base and act accordingly either by attempting to contain and resolve the incident or escaping through the emergency exits.
+In the context of our Artificial Intelligence course subject, we were proposed a project to develop a simulation in Unity that replicates the behavior of agents on a Mars habitat colony, in which the agents of the simulation would be required to perform work tasks on specific areas of the base as well as satisfy their need for rest. Agents would also be required to react to incidents in the base and act accordingly either by attempting to contain and resolve the incident or escaping through the emergency exits.
 
 Research performed for project resolution:
 
 - [^1]Layout of base was made by dividing work areas and rest areas, left side has the habitat and recharge stations and right side has the lab, storage and greenhouse, with airlocks connected to storage and greenhouse
 
 ## Methodology
+
+The simulation was implemented in a Unity 3D scene, with the agents using Unity's NavMesh system (kinematic movement).
 
 ```mermaid
 
@@ -207,7 +209,6 @@ stateDiagram-v2
 
     WanderState --> RobotDecideState : destination reached
 ```
-
 
 ## Results and Discussion
 
