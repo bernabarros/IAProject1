@@ -21,9 +21,9 @@
 
 ## Introduction
 
-In the context of our Artificial Intelligence course subject, we were proposed a project to develop a simulation in Unity that replicates the behavior of agents on a Mars habitat colony, in which the agents of the simulation would be required to perform work tasks on specific areas of the base as well as satisfy their need for rest. Agents would also be required to react to incidents in the base and act accordingly either by attempting to contain and resolve the incident or if it becomes uncontrolable, escaping through the emergency exits.
+In the context of our Artificial Intelligence course subject, we were proposed a project to develop a simulation in Unity that replicates the behavior of agents on a Mars habitat colony, in which the agents of the simulation would be required to perform work tasks on specific areas of the base as well as satisfy their need for rest. Agents would also be required to react to incidents in the base and act accordingly either by attempting to contain and resolve the incident or if it becomes uncontrollable, escaping through the emergency exits.
 In order to resolve the project, we opted for using Finite State Machines to handle the decision making of the agents and Unity's NavMesh system to handle pathfinding.
-The expected behaviour would be that human agents would perform tasks around the base normally making their way to the interaction spots to restore stats or perform work tasks while robots would mostly maintain their energy stat and respond to incidents in the base. Human agents would evacuate should a incident spread too much.
+The expected behavior would be that human agents would perform tasks around the base normally making their way to the interaction spots to restore stats or perform work tasks while robots would mostly maintain their energy stat and respond to incidents in the base. Human agents would evacuate should a incident spread too much.
 
 Research performed for project resolution:
 
@@ -36,7 +36,7 @@ In terms of programming, scripts for each State were created that control the ta
 Manager scripts, using the Singleton Design Pattern, were created to manage the interaction spots as well as the spawning of agents.
 Agent scripts control the values of agent stats and the priority of tasks each agent must perform.
 A "Spawn Agent" button was added to spawn 20 agents into the simulation and a counter to track the number of deaths that occur from incidents.
-The "I" keyboard key can be used to trigger a random incident. Module areas will change to the color Red for fire incidents, Cyan for oxygen incidents and black for power failure incidents
+The "I" keyboard key can be used to trigger a random incident. Module areas will change to the color Red for fire incidents, Cyan for oxygen incidents and black for power failure incidents.
 
 ```mermaid
 
@@ -237,9 +237,9 @@ stateDiagram-v2
 
 ## Results and Discussion
 
-The implementation of the simulation was successful, it containts the core requirements of the project. The combination of NavMesh system and FSM (Finite State Machine) provided a nice framework for agent autonomy
+The implementation of the simulation was successful, it contains the core requirements of the project. The combination of NavMesh system and FSM (Finite State Machine) provided a nice framework for agent autonomy
 
-FSM allowed both Crew Members and Robots to act. Dinamically calculation scores for RestNeed, ResourceNeed and WorkNeed. Crew Members transitioned between modules without getting stuck. Robots managed their battery levels, prioritizing charging only when necessary.
+FSM allowed both Crew Members and Robots to act. Dynamically calculation scores for RestNeed, ResourceNeed and WorkNeed. Crew Members transitioned between modules without getting stuck. Robots managed their battery levels, prioritizing charging only when necessary.
 
 The best aspect of this simulation was the dynamic response between emergencies. The Incident manager allowed randomized hazards to spawn and propagate. It has visual feedback for every hazard; Red for fire; Cyan for O2 Leak; Black for Power Failure.
 
@@ -247,6 +247,8 @@ In crisis, the robots transitioned to the ContainIncidentState, and navigated to
 
 The robots would enter an infinite recalculation loop when approaching an obstacle. This was resolved by destroying the NavMeshAgent upon an agent's death. And turning them into an obstacle creating a solid barrier.
 ## Conclusions
+
+In conclusion, our work exemplified a possible way that a colony simulation could be made utilizing methods of decision making for AI, in our case the Finite State Machine, taking into account a possible layout for a habitat and the behaviors of agents living and working on the habitat. Our implementation of incidents also allowed us to see the behavior of agents during an emergency situation, with us having decided to set the Robot agents to act in accident resolution tasks to protect human agents from harm.
 
 ## References
 
