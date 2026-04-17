@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class IncidentManager : MonoBehaviour
 {
@@ -11,14 +12,15 @@ public class IncidentManager : MonoBehaviour
     {
         _Instance = this;
 
-        allZones = new List<HazardZone>(FindObjectsOfType<HazardZone>());
+        allZones = new List<HazardZone>(FindObjectsByType<HazardZone>(FindObjectsSortMode.None));
 
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        if(Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
         {
+            Debug.Log("Triggering random incident...");
             TriggerRandomIncident();
         }
     }

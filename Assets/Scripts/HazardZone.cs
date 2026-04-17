@@ -29,7 +29,17 @@ public class HazardZone : MonoBehaviour
 
         _currentHazard = hazard;
 
-        if(hazard == HazardType.Fire && _navObstacle != null)
+
+        Renderer zoneRender = GetComponent<Renderer>();
+        if (zoneRender != null)
+        {
+            if(hazard == HazardType.Fire)
+                zoneRender.material.color = Color.red;
+            else if (hazard == HazardType.O2Leak)
+                zoneRender.material.color = Color.cyan;
+        }
+
+        if (hazard == HazardType.Fire && _navObstacle != null)
         {
             _navObstacle.enabled = true;
         }
@@ -91,5 +101,17 @@ public class HazardZone : MonoBehaviour
         corpseObstacle.carving = true;
 
         // GameManager call here
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (_currentHazard == HazardType.None) return;
+
+        Agent agent = other.GetComponent<Agent>();
+
+        if(agent != null)
+        {
+            KillAgent(agent);
+        }
     }
 }
