@@ -153,4 +153,10 @@ MonoBehaviour:
   energy: 100
   maxEnergy: 100
   navAgent: {fileID: 5865732567507563969}
+  workWeight: 1.1
+  restWeight: 1.2
+  resourceWeight: 1
+  restRate: 0
+  resourceRate: 0
+  workRate: 0
   restPoint: {fileID: 0}

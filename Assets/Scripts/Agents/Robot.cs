@@ -14,6 +14,8 @@ public class Robot : Agent
 
     [SerializeField] private float energyRate;
 
+    private bool isDealingWithIncident = false;
+
     /// <summary>
     /// Inicializa a FSM do robô com energia randomizada e define o estado inicial.
     /// </summary>
@@ -62,6 +64,16 @@ public class Robot : Agent
     }
     public void RespondToIncident(HazardZone zone)
     {
-        fsm.ChangeState(new ContainIncidentState(this, zone));
+        if(!isDealingWithIncident)
+        {
+            isDealingWithIncident = true;
+            fsm.ChangeState(new ContainIncidentState(this, zone));
+        }
+            
+    }
+
+    public void IncidentOver(bool isResolved)
+    {
+        isDealingWithIncident = isResolved;
     }
 }

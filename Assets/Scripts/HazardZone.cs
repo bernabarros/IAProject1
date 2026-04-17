@@ -11,6 +11,7 @@ public class HazardZone : MonoBehaviour
     [SerializeField] private float _propagationTime = 15f;
 
     private NavMeshObstacle _navObstacle;
+    private Color _originalColor;
 
     /// <summary>
     /// Gets the NavMeshObstacle component and initializes it if the hazard is already active at the start
@@ -18,6 +19,11 @@ public class HazardZone : MonoBehaviour
     private void Awake()
     {
         _navObstacle = GetComponent<NavMeshObstacle>();
+        Renderer zoneRender = GetComponent<Renderer>();
+        if (zoneRender != null)
+        {
+            _originalColor = zoneRender.material.color;
+        }
     }
     /// <summary>
     /// Activate Hazard and starts to propagate to zones
@@ -33,16 +39,27 @@ public class HazardZone : MonoBehaviour
         Renderer zoneRender = GetComponent<Renderer>();
         if (zoneRender != null)
         {
-            if(hazard == HazardType.Fire)
-                zoneRender.material.color = Color.red;
-            else if (hazard == HazardType.O2Leak)
-                zoneRender.material.color = Color.cyan;
+            switch (hazard)
+            {
+                case HazardType.Fire:
+                    zoneRender.material.color = Color.red;
+                    break;
+                case HazardType.O2Leak:
+                    zoneRender.material.color = Color.cyan;
+                    break;
+                case HazardType.PowerFailure:
+                    zoneRender.material.color = Color.black;
+                    break;
+            }
         }
 
-        if (hazard == HazardType.Fire && _navObstacle != null)
+        if ((hazard == HazardType.Fire || hazard == HazardType.O2Leak) && _navObstacle != null)
         {
             _navObstacle.enabled = true;
         }
+
+        IncidentManager._Instance.ActiveHazard(this);
+
         TriggerAlarm();
 
         StartCoroutine(PropagateHazard());
@@ -135,8 +152,10 @@ public class HazardZone : MonoBehaviour
         Renderer zoneRenderer = GetComponent<Renderer>();
         if (zoneRenderer != null)
         {
-            zoneRenderer.material.color = Color.white;
+            zoneRenderer.material.color = _originalColor;
         }
+
+        IncidentManager._Instance.RemoveHazard(this);
     }
 
     private void TriggerAlarm()

@@ -152,3 +152,4 @@ MonoBehaviour:
   maxEnergy: 100
   navAgent: {fileID: 590851716920125424}
   energyWeight: 1.5
+  energyRate: 0

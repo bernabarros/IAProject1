@@ -8,6 +8,8 @@ public class IncidentManager : MonoBehaviour
 
     [SerializeField] private List<HazardZone> allZones;
 
+    [SerializeField] private List<HazardZone> activeHazards = new List<HazardZone>();
+
     private void Awake()
     {
         _Instance = this;
@@ -38,4 +40,26 @@ public class IncidentManager : MonoBehaviour
 
         startZone.ActivateHazard(randomHazard);
     }
+
+    private void RegisterActiveHazard(HazardZone zone)
+    {
+        if (!activeHazards.Contains(zone)) activeHazards.Add(zone);
+    }
+
+    private void RemoveActiveHazard(HazardZone zone)
+    {
+        if (activeHazards.Contains(zone)) activeHazards.Remove(zone);
+    }
+
+    private HazardZone GetNextHazard()
+    {
+        if (activeHazards.Count > 0) return activeHazards[0];
+        return null;
+    }
+
+    public void ActiveHazard(HazardZone zone) => RegisterActiveHazard(zone);
+
+    public void RemoveHazard(HazardZone zone) => RemoveActiveHazard(zone);
+
+    public HazardZone NextHazard() => GetNextHazard();
 }

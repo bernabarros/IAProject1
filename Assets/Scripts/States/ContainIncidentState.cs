@@ -67,6 +67,17 @@ public class ContainIncidentState : IState
 
     private void FinishContainment()
     {
-        robot.fsm.ChangeState(new RobotDecideState(robot));
+        HazardZone nextZone = IncidentManager._Instance.NextHazard();
+
+        if (nextZone != null)
+        {
+            robot.fsm.ChangeState(new ContainIncidentState(robot, nextZone));
+        }
+        else
+        {
+            robot.IncidentOver(false);
+            robot.fsm.ChangeState(new RobotDecideState(robot));
+        }
+
     }
 }
